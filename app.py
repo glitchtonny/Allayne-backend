@@ -9,6 +9,8 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from config import app, db
 from models import User, Product,Category, Cart, CartItem, Order, OrderItem
 
+app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key_here'
+
 # Initialize Bcrypt and JWTManager
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
@@ -77,6 +79,8 @@ def login():
             'access_token': access_token,
             'id': user.id,
             'username': user.username,
+            'email': user.email,
+            # 'phone_number': user.phone_number,
             'role': user.role
         }), 200
     
@@ -228,6 +232,7 @@ def delete_product(product_id):
     if not product:
         return jsonify({'message': 'Product not found'}), 404
     
+    
     # Delete the product from the database
     db.session.delete(product)
     db.session.commit()
@@ -235,7 +240,8 @@ def delete_product(product_id):
     # Return a success message
     return jsonify({'message': f'Product "{product.name}" has been deleted successfully.'}), 200
 
-################################################
+
+###################################################################
 #adding product to cart
 @app.route("/cart", methods=['POST'])
 @jwt_required()
@@ -283,7 +289,7 @@ def add_to_cart():
     return jsonify({'message': 'Product added to cart successfully'}), 201
 
 
-################################################################
+#######################################################################
 #getting products in cart
 @app.route('/cart', methods=['GET'])
 @jwt_required()
@@ -319,7 +325,7 @@ def get_cart():
 
 
 
-################################################################
+###################################################################
 # Route to update the quantity of an item in the cart
 @app.route('/cart/<int:item_id>', methods=['PUT'])
 @jwt_required()
@@ -502,6 +508,79 @@ def view_all_orders():
         })
 
     return jsonify({"orders": orders_data}), 200
+
+
+
+##############################################################################
+# Route to allow logged-in users to view their orders
+@app.route('/orders/my-orders', methods=['GET'])
+@jwt_required()
+def get_my_orders():
+
+    # Get the current user's identity (id)
+    user_id = get_jwt_identity()['id']
+
+    # Query the orders related to the logged-in user
+    orders = Order.query.filter_by(user_id=user_id).all()
+
+    if not orders:
+        return jsonify({"message": "No orders found."}), 404
+
+    # Serialize the orders
+    serialized_orders = []
+    for order in orders:
+        serialized_order = {
+            "order_id": order.id,
+            "total_price": order.total_price,
+            "status": order.status,
+            "billing_address": order.billing_address,
+            "shipping_address": order.shipping_address,
+            "items": [
+                {
+                    "product_id": item.product_id,
+                    "product_name": item.product.name,
+                    "quantity": item.quantity,
+                    "price": item.product.price
+                } for item in order.items
+            ]
+        }
+        serialized_orders.append(serialized_order)
+
+    return jsonify(serialized_orders), 200
+
+
+##############################################################
+# Route to allow logged-in users to view the details of a specific order
+@app.route('/order/<int:order_id>', methods=['GET'])
+@jwt_required()
+def get_order_details(order_id):
+    # Get the current user's identity (id)
+    user_id = get_jwt_identity()['id']
+
+    # Query the specific order by order_id and ensure it belongs to the logged-in user
+    order = Order.query.filter_by(id=order_id, user_id=user_id).first()
+
+    if not order:
+        return jsonify({"message": "Order not found or you don't have access to this order."}), 404
+
+    # Serialize the order
+    serialized_order = {
+        "order_id": order.id,
+        "total_price": order.total_price,
+        "status": order.status,
+        "billing_address": order.billing_address,
+        "shipping_address": order.shipping_address,
+        "items": [
+            {
+                "product_id": item.product_id,
+                "product_name": item.product.name,
+                "quantity": item.quantity,
+                "price": item.product.price
+            } for item in order.items
+        ]
+    }
+
+    return jsonify(serialized_order), 200
 
 
 if __name__ == '__main__':

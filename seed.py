@@ -76,34 +76,75 @@ with app.app_context():
 
         ],
         'Dresses': [
-            {'name': 'Floral Dress', 'description': 'A beautiful floral print dress.', 'image_url': 'https://example.com/floral-dress.jpg'},
-            {'name': 'Cocktail Dress', 'description': 'Perfect for evening events.', 'image_url': 'https://example.com/cocktail-dress.jpg'},
-            {'name': 'Maxi Dress', 'description': 'A flowing maxi dress.', 'image_url': 'https://example.com/maxi-dress.jpg'},
-            {'name': 'Summer Dress', 'description': 'Light and breezy for summer.', 'image_url': 'https://example.com/summer-dress.jpg'}
+            {'name': 'Floral Dress', 'description': 'A beautiful floral print dress.', 'image_url': 'https://www.houseofdeevas.co.za/wp-content/uploads/2021/11/Dress-2.jpg'},
+            {'name': 'Cocktail Dress', 'description': 'Perfect for evening events.', 'image_url': 'https://i.ebayimg.com/images/g/T-YAAOSwshpjV25x/s-l1200.jpg'},
+            {'name': 'Maxi Dress', 'description': 'A flowing maxi dress.', 'image_url': 'https://m.media-amazon.com/images/I/71co2U3QUgL._AC_UY350_.jpg'},
+            {'name': 'Summer Dress', 'description': 'Light and breezy for summer.', 'image_url': 'https://m.media-amazon.com/images/I/71qZP4lq5RL._AC_UY1000_.jpg'},
+            {'name': 'Mini Dress', 'description': 'A beautiful floral print dress.', 'image_url': 'https://storage.googleapis.com/windsor-cms/media/2023/01/eb6599f9-magenta-faux-suede-mini-skirt.jpg'},
+            {'name': 'Camisole Dress', 'description': 'Perfect for evening events.', 'image_url': 'https://m.media-amazon.com/images/I/81XAb2Vy9VL.jpg'},
+            {'name': 'Cocoon Dress', 'description': 'A flowing maxi dress.', 'image_url': 'https://fellahamilton.com.au/cdn/shop/products/a7201sz.463-1-dress-lipstick.jpg?v=1700832589'},
+            {'name': 'Corset Dress', 'description': 'Light and breezy for summer.', 'image_url': 'https://www.noodzboutique.com.au/cdn/shop/files/Crystalcorsetsatingowninburgundy3.jpg?v=1688530054&width=1200'},
+            {'name': 'Mini Dress', 'description': 'A beautiful floral print dress.', 'image_url': 'https://storage.googleapis.com/windsor-cms/media/2023/01/eb6599f9-magenta-faux-suede-mini-skirt.jpg'},
+            {'name': 'Camisole Dress', 'description': 'Perfect for evening events.', 'image_url': 'https://m.media-amazon.com/images/I/81XAb2Vy9VL.jpg'},
+            {'name': 'Cocoon Dress', 'description': 'A flowing maxi dress.', 'image_url': 'https://fellahamilton.com.au/cdn/shop/products/a7201sz.463-1-dress-lipstick.jpg?v=1700832589'},
+            {'name': 'Corset Dress', 'description': 'Light and breezy for summer.', 'image_url': 'https://www.noodzboutique.com.au/cdn/shop/files/Crystalcorsetsatingowninburgundy3.jpg?v=1688530054&width=1200'}
         ],
         'Tops': [
-            {'name': 'Graphic Tee', 'description': 'A trendy graphic tee.', 'image_url': 'https://example.com/graphic-tee.jpg'},
-            {'name': 'Crop Top', 'description': 'A chic crop top.', 'image_url': 'https://example.com/crop-top.jpg'},
-            {'name': 'Blouse', 'description': 'Elegant and classy blouse.', 'image_url': 'https://example.com/blouse.jpg'},
-            {'name': 'Tank Top', 'description': 'Casual and comfy tank top.', 'image_url': 'https://example.com/tank-top.jpg'}
+            {'name': 'Graphic Tee', 'description': 'A trendy graphic tee.', 'image_url': 'https://blackhare.ca/cdn/shop/products/black-ladies-bee-783107.jpg?v=1709956322&width=1445'},
+            {'name': 'Crop Top', 'description': 'A chic crop top.', 'image_url': 'https://i5.walmartimages.com/seo/HTNBO-Cute-Crop-Tops-for-Women-Summer-Fall-Trends-Lattern-Long-Sleeve-Floral-Casual-Cami-Shirts_6e749edd-cd52-4326-99e7-e54640fe5728.ed2d0bd6f10b6d65ddb009d77488fd48.jpeg'},
+            {'name': 'Blouse', 'description': 'Elegant and classy blouse.', 'image_url': 'https://cdn.pomelofashion.com/img/p/5/7/3/3/5/0/573350.jpg?auto=compress,format&fm=webp,jpg,png&w=1081.5&h=1438.5'},
+            {'name': 'Tank Top', 'description': 'Casual and comfy tank top.', 'image_url': 'https://images.napali.app/global/roxy-products/all/default/large/erjzt05351_roxy,w_kvj0_frt1.jpg'},
+            {'name': 'Bralette Top', 'description': 'A trendy graphic tee.', 'image_url': 'https://m.media-amazon.com/images/I/81HXUdEz4tL._AC_UY1000_.jpg'},
+            {'name': 'Tube Top', 'description': 'A chic crop top.', 'image_url': 'https://i5.walmartimages.com/asr/3a2d5200-1af3-4749-839e-c0e617264d3b.87a2a50a78e3f2557480f11ee41bccff.png'},
+            {'name': 'Ethnic', 'description': 'Elegant and classy blouse.', 'image_url': 'https://adn-static1.nykaa.com/nykdesignstudio-images/pub/media/catalog/product/f/3/f314402SS22-W-TP01_1.jpg?tr=w-512'},
+            {'name': 'Cape Top', 'description': 'Casual and comfy tank top.', 'image_url': 'https://n.nordstrommedia.com/id/sr3/3046e66f-c0a8-4e49-8f24-ee274216b512.jpeg?h=365&w=240&dpr=2'},
+            {'name': 'Peplum Top', 'description': 'A trendy graphic tee.', 'image_url': 'https://images-cdn.ubuy.com.sa/63ab9fd103595240b17d400b-shein-women-39-s-plus-ruffle-tie-front.jpg'},
+            {'name': 'Ruffle Top', 'description': 'A chic crop top.', 'image_url': 'https://media.boohoo.com/i/boohoo/pzz66650_black_xl?w=900&qlt=default&fmt.jp2.qlt=70&fmt=auto&sm=fit'},
+            {'name': 'Wrap Tops', 'description': 'Elegant and classy blouse.', 'image_url': 'https://m.media-amazon.com/images/I/618s88c5EGL._AC_UY1100_.jpg'},
+            {'name': 'Tunic Top', 'description': 'Casual and comfy tank top.', 'image_url': 'https://i5.walmartimages.com/asr/a4024d46-f9d4-4f52-9459-e0759f7c82fc.6cce4de2da821ddd2d8f9efa0dd9e995.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF'}
         ],
         'Bottoms': [
-            {'name': 'Chinos', 'description': 'Comfortable chinos for all-day wear.', 'image_url': 'https://example.com/chinos.jpg'},
-            {'name': 'Culottes', 'description': 'Wide-legged culottes.', 'image_url': 'https://example.com/culottes.jpg'},
-            {'name': 'Shorts', 'description': 'Perfect for summer days.', 'image_url': 'https://example.com/shorts.jpg'},
-            {'name': 'Leggings', 'description': 'Versatile and comfortable leggings.', 'image_url': 'https://example.com/leggings.jpg'}
+            {'name': 'Chinos', 'description': 'Comfortable chinos for all-day wear.', 'image_url': 'https://images.express.com/is/image/expressfashion/0092_07452358_0557_f001?cache=on&wid=480&fmt=jpeg&qlt=85,1&resmode=sharp2&op_usm=1,1,5,0&defaultImage=Photo-Coming-Soon'},
+            {'name': 'Culottes', 'description': 'Wide-legged culottes.', 'image_url': 'https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/05/1297941/1.jpg?2125'},
+            {'name': 'Shorts', 'description': 'Perfect for summer days.', 'image_url': 'https://www.ikojn.com/cdn/shop/files/dolce-shorts-in-tan-ikojn-1_2048x.jpg?v=1721224081'},
+            {'name': 'Leggings', 'description': 'Versatile and comfortable leggings.', 'image_url': 'https://shopzetu.com/cdn/shop/products/11-10-websiteshoot-07486-786678_1000x.jpg?v=1707910903'},
+            {'name': 'Palazzo', 'description': 'Comfortable chinos for all-day wear.', 'image_url': 'https://shopzetu.com/cdn/shop/products/JolAnuYXPu-110623_400x.jpg?v=1707909810'},
+            {'name': 'Capri', 'description': 'Wide-legged culottes.', 'image_url': 'https://i5.walmartimages.com/seo/Capri-Pants-for-Women-Cotton-Linen-Plus-Size-Cargo-Pants-Capris-Elastic-High-Waisted-3-4-Slacks-with-Multi-Pockets-4X-Large-Black_ff09e67a-4320-4602-aedd-0ac866c02596.aee72944d52d64daa454628bc4a2c7b2.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF'},
+            {'name': 'Flare', 'description': 'Perfect for summer days.', 'image_url': 'https://img.fruugo.com/product/4/52/371671524_max.jpg'},
+            {'name': 'Bootcut', 'description': 'Versatile and comfortable leggings.', 'image_url': 'https://i.pinimg.com/1200x/21/ce/a6/21cea6e1b0aa5bc51ded9644257667cb.jpg'},
+            {'name': 'Sweatpants', 'description': 'Comfortable chinos for all-day wear.', 'image_url': 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/e4d52036-f404-483e-8121-4aba4d978e08/sportswear-phoenix-fleece-high-waisted-oversized-tracksuit-bottoms-00TZkD.png'},
+            {'name': 'Leather', 'description': 'Wide-legged culottes.', 'image_url': 'https://i.etsystatic.com/13549429/r/il/d1ebbd/2886228391/il_fullxfull.2886228391_gmum.jpg'},
+            {'name': 'Ankle', 'description': 'Perfect for summer days.', 'image_url': 'https://cdn.sixtyandme.com/wp-content/uploads/2021/05/Chicos-2.png'},
+            {'name': 'Dress', 'description': 'Versatile and comfortable leggings.', 'image_url': 'https://m.media-amazon.com/images/I/71sO1pG240L._AC_UY1000_.jpg'}
         ],
         'Shoes': [
-            {'name': 'Sneakers', 'description': 'Casual sneakers for everyday wear.', 'image_url': 'https://example.com/sneakers.jpg'},
-            {'name': 'Heels', 'description': 'Elegant heels for special occasions.', 'image_url': 'https://example.com/heels.jpg'},
-            {'name': 'Boots', 'description': 'Sturdy boots for all weather.', 'image_url': 'https://example.com/boots.jpg'},
-            {'name': 'Sandals', 'description': 'Open-toe sandals for summer.', 'image_url': 'https://example.com/sandals.jpg'}
+            {'name': 'Sneakers', 'description': 'Casual sneakers for everyday wear.', 'image_url': 'https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/07/7657451/1.jpg?8282'},
+            {'name': 'Heels', 'description': 'Elegant heels for special occasions.', 'image_url': 'https://files.sophie.co.ke/2022/08/1834905091_1666-1_7944.jpg'},
+            {'name': 'Boots', 'description': 'Sturdy boots for all weather.', 'image_url': 'https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/39/2833711/2.jpg?9753'},
+            {'name': 'Sandals', 'description': 'Open-toe sandals for summer.', 'image_url': 'https://img.fruugo.com/product/8/33/234475338_max.jpg'},
+            {'name': 'Low heels', 'description': 'Casual sneakers for everyday wear.', 'image_url': 'https://www.travelandleisure.com/thmb/9Dzlyqe3ue0Cfdgi0_9R-XgJv6g=/fit-in/1500x1000/filters:no_upscale():max_bytes(150000):strip_icc()/DREAM-PAIRS-Womens-Chunk-Low-Heel-Pump-Sandals-eaaface4df364c6fa29983f644d8e28d.jpg'},
+            {'name': 'Flats', 'description': 'Elegant heels for special occasions.', 'image_url': 'https://rikeys.co.ke/images/resized_IMG-20200524-WA0013.jpg'},
+            {'name': 'loafer', 'description': 'Sturdy boots for all weather.', 'image_url': 'https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/40/5935051/1.jpg?2439'},
+            {'name': 'Abaca', 'description': 'Open-toe sandals for summer.', 'image_url': 'https://i5.walmartimages.com/seo/Slippers-For-Women-Girls-Flat-Casual-Sandals-Straw-Linen-Bottom-Beach-Shoes-Target-Dressy-Womens-Size-8-Dress_0eb6cd07-fc98-4127-9e91-1cd73ec53272.abbdebd27f1d709fe2ba6afbe295084e.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF'},
+            {'name': 'Clog', 'description': 'Casual sneakers for everyday wear.', 'image_url': 'https://m.media-amazon.com/images/I/61QqAK1h9SL._AC_UY300_.jpg'},
+            {'name': 'Stilettos', 'description': 'Elegant heels for special occasions.', 'image_url': 'https://m.media-amazon.com/images/I/71l7mVKoyZL._AC_UF894,1000_QL80_.jpg'},
+            {'name': 'wedges', 'description': 'Sturdy boots for all weather.', 'image_url': 'https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/32/9391251/1.jpg?9155'},
+            {'name': 'Espadrille', 'description': 'Open-toe sandals for summer.', 'image_url': 'https://www.viscata.com/cdn/shop/products/Espadrilles-Flats-Women-Canvas-Black-Barceloneta-2_4735762b-b45f-4dd1-946c-697699b933dd.jpg?v=1724229166&width=1445'}
         ],
         'Matching Sets': [
-            {'name': 'Two-Piece Set', 'description': 'A stylish two-piece set.', 'image_url': 'https://example.com/two-piece-set.jpg'},
-            {'name': 'Suit Set', 'description': 'Formal suit set for business.', 'image_url': 'https://example.com/suit-set.jpg'},
-            {'name': 'Jogger Set', 'description': 'Comfortable jogger set.', 'image_url': 'https://example.com/jogger-set.jpg'},
-            {'name': 'Lounge Set', 'description': 'Perfect for lounging at home.', 'image_url': 'https://example.com/lounge-set.jpg'}
+            {'name': 'Two-Piece Set', 'description': 'A stylish two-piece set.', 'image_url': 'https://ae01.alicdn.com/kf/Sf4443bac50d4484390f01994c7862d0c4/Summer-Two-Piece-Set-Women-Fashion-Printed-Boho-Crop-Top-High-Waist-Pants-Suit-Women-s.jpg'},
+            {'name': 'Suit Set', 'description': 'Formal suit set for business.', 'image_url': 'https://www.hollywoodreporter.com/wp-content/uploads/2022/09/HM.jpeg'},
+            {'name': 'Jogger Set', 'description': 'Comfortable jogger set.', 'image_url': 'https://www.usmagazine.com/wp-content/uploads/2020/10/ZESICA-Womens-Long-Sleeve-Crop-Top-and-Pants-2-Piece-Jogger-Set-2.png?w=930&quality=86&strip=all'},
+            {'name': 'Lounge Set', 'description': 'Perfect for lounging at home.', 'image_url': 'https://media.boohoo.com/i/boohoo/gzz47933_stone_xl/female-stone-tall-soft-rib-collar-tee-wide-leg-trouser-lounge-set/?w=900&qlt=default&fmt.jp2.qlt=70&fmt=auto&sm=fit'},
+            {'name': 'Plus size', 'description': 'A stylish two-piece set.', 'image_url': 'https://thepinkmoon.in/cdn/shop/files/CORD_10_BLKLN_9.jpg?v=1720182273&width=1080'},
+            {'name': 'Streetwear sets', 'description': 'Formal suit set for business.', 'image_url': 'https://i.pinimg.com/736x/61/8a/bd/618abd50eabfe3424602a8927749559d.jpg'},
+            {'name': 'Summer set', 'description': 'Comfortable jogger set.', 'image_url': 'https://i.pinimg.com/736x/a6/4a/9a/a64a9ad04c8afc6eda983caa5ecbf43d.jpg'},
+            {'name': 'Going out set', 'description': 'A stylish two-piece set.', 'image_url': 'https://styledup.co.uk/cdn/shop/files/black-drape-slinky-crop-top-and-flares-going-out-two-piece-styledup-fashion.jpg?v=1703502729'},
+            {'name': 'Party Set', 'description': 'Formal suit set for business.', 'image_url': 'https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/59/4582031/1.jpg?1812'},
+            {'name': 'Casual Set', 'description': 'Comfortable jogger set.', 'image_url': 'https://www.lestyleparfait.co.ke/cdn/shop/files/casual-patchwork-matching-women-s-clothing-set-lestyleparfait-kenya-clothing-set-1.jpg?v=1703684253'},
+            {'name': 'Formal Set', 'description': 'Perfect for lounging at home.', 'image_url': 'https://files.sophie.co.ke/2023/06/757084102_2749-1_3448.jpg'},
+            {'name': 'Pajamas Set', 'description': 'Perfect for lounging at home.', 'image_url': 'https://i5.walmartimages.com/seo/PATLOLLAV-Womens-Clearance-Women-Silk-Satin-Pajamas-Set-Two-Piece-Sleepwear-Loungewear-Button-Down-Sets_eb1a5fe3-9c30-46e5-bc21-52def550fc4a_1.c8e3408d8ebdc01fbc85e20e8f963991.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF'},
+
         ]
     }
 
