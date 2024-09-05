@@ -4,6 +4,10 @@
 from flask import request, jsonify
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+import requests
+from requests.auth import HTTPBasicAuth
+import datetime
+import base64
 
 # Local imports
 from config import app, db
@@ -15,6 +19,27 @@ app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key_here'
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 
+
+# M-Pesa credentials
+CONSUMER_KEY = 'EGUWDv8KcAgJQe08Gbgd0XDiJrmANJ7qV0SWwkxuh0aaGhnC'
+CONSUMER_SECRET = 'fXBG6h3MayGHakAnj0bc3FGosRquGcoGEazg3JwfjmRe9SzB1YwuqTWwliOVNpFq'
+SHORTCODE = '174379'
+PASSKEY = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'
+LIPA_NA_MPESA_URL = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'
+
+# Function to get access token
+def get_access_token():
+    url = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
+    response = requests.get(url, auth=HTTPBasicAuth(CONSUMER_KEY, CONSUMER_SECRET))
+    json_response = response.json()
+    return json_response['access_token']
+
+# Function to generate the password for the STK push request
+def generate_password():
+    timestamp = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+    password_str = SHORTCODE + PASSKEY + timestamp
+    password = base64.b64encode(password_str.encode()).decode('utf-8')
+    return password, timestamp
 # Views go here!
 
 @app.route('/')
@@ -29,8 +54,12 @@ def register():
     data = request.get_json()
     
     # Validate input data
-    if not data or 'username' not in data or 'password' not in data:
+    if not data or 'username' not in data or 'password' not in data or 'role' not in data:
         return jsonify({'message': 'Invalid data provided'}), 400
+    
+    # Validate role
+    if data['role'] not in ['admin', 'customer']:
+        return jsonify({'message': 'Invalid role provided'}), 400
     
     # Check if the username already exists
     existing_user = User.query.filter_by(username=data['username']).first()
@@ -45,7 +74,7 @@ def register():
         username=data['username'],
         password=hashed_password,
         email=data.get('email'),
-        role=data.get('role', 'customer')  # Default role is 'customer'
+        role=data['role']  # Role must be specified and validated
     )
     
     # Add the new user to the database
@@ -53,8 +82,6 @@ def register():
     db.session.commit()
     
     return jsonify({'message': 'User registered successfully'}), 201
-
-
 
 ################################################################
 # Login route
@@ -246,12 +273,17 @@ def delete_product(product_id):
 @app.route("/cart", methods=['POST'])
 @jwt_required()
 def add_to_cart():
+    print("Add to cart")
     # Get the identity of the current user
     current_user = get_jwt_identity()
+
+    print("Current user", current_user)
     
     # Get the product data from the request
     data = request.get_json()
-    
+    print("data")
+    print("Received data: ", data)
+    print("Received data: ", request.get_json())
     # Validate the input data
     if not data or 'product_id' not in data or 'quantity' not in data:
         return jsonify({'message': 'Invalid data provided'}), 400
@@ -267,6 +299,10 @@ def add_to_cart():
         return jsonify({'message': 'Invalid quantity'}), 400
     
 
+    cart = Cart(
+            user_id=current_user['id']
+        )
+    db.session.add(cart)
     
     # Check if the product is already in the user's cart
     cart_item = CartItem.query.filter_by(user_id=current_user['id'], product_id=product.id).first()
@@ -277,6 +313,7 @@ def add_to_cart():
     else:
         # If the product is not in the cart, create a new CartItem
         cart_item = CartItem(
+            cart_id=cart.id,
             user_id=current_user['id'],
             product_id=product.id,
             quantity=data['quantity']
@@ -288,40 +325,43 @@ def add_to_cart():
     
     return jsonify({'message': 'Product added to cart successfully'}), 201
 
-
 #######################################################################
 #getting products in cart
 @app.route('/cart', methods=['GET'])
 @jwt_required()
 def get_cart():
-    # Get the current user from the JWT token
-    current_user_id = get_jwt_identity()
-    
-    # Query for the user's cart
-    cart = Cart.query.filter_by(user_id=current_user_id).first()
-    
-    if not cart:
-        return jsonify({"message": "Cart is empty"}), 200
-    
-    # Get the cart items and related product details
-    cart_items = []
-    for item in cart.items:
-        product = Product.query.get(item.product_id)
-        cart_items.append({
-            'product_id': product.id,
-            'name': product.name,
-            'description': product.description,
-            'price': product.price,
-            'quantity': item.quantity,
-            'image_url': product.image_url
-        })
-    
-    # Return the cart details as JSON
-    return jsonify({
-        'cart_id': cart.id,
-        'total_price': cart.total_price,
-        'items': cart_items
-    }), 200
+    try:
+        current_user_id = get_jwt_identity()
+        print(f"Current User ID: {current_user_id}")
+        
+        cart = Cart.query.filter_by(user_id=current_user_id['id']).first()
+        print(cart.id)
+        cart_detail = CartItem.query.filter_by(user_id=current_user_id['id']).all()
+        
+        if not cart:
+            return jsonify({"message": "Cart is empty"}), 200
+        
+        cart_items = []
+        for item in cart_detail:
+            product = Product.query.get(item.product_id)
+            cart_items.append({
+                'product_id': product.id,
+                'name': product.name,
+                'description': product.description,
+                'price': product.price,
+                'quantity': item.quantity,
+                'image_url': product.image_url
+            })
+        
+        return jsonify({
+            'cart_id': cart.id,
+            'total_price': cart.user_id,
+            'items': cart_items
+        }), 200
+
+    except Exception as e:
+        print(f"Error fetching cart: {str(e)}")
+        return jsonify({"message": "Error fetching cart", "error": str(e)}), 422
 
 
 
@@ -374,16 +414,16 @@ def remove_cart_item(item_id):
     current_user_id = get_jwt_identity()
     
     # Find the user's cart
-    cart = Cart.query.filter_by(user_id=current_user_id).first()
+    cart = Cart.query.filter_by(user_id=current_user_id['id']).first()
     
     if not cart:
         return jsonify({"message": "Cart not found"}), 404
     
     # Find the cart item by ID
-    cart_item = CartItem.query.filter_by(id=item_id, cart_id=cart.id).first()
+    cart_item = CartItem.query.filter_by(id=item_id).first()
     
-    if not cart_item:
-        return jsonify({"message": "Cart item not found"}), 404
+    # if not cart_item:
+    #     return jsonify({"message": "Cart item not found"}), 404
     
     # Remove the cart item from the database
     db.session.delete(cart_item)
@@ -429,40 +469,43 @@ def get_products_by_category(category_id):
 def create_order():
     # Get the current user from the JWT token
     current_user_id = get_jwt_identity()
+    data = request.get_json()
+    print(data)
 
     # Find the user's cart
-    cart = Cart.query.filter_by(user_id=current_user_id).first()
+    cart = Cart.query.filter_by(user_id=current_user_id['id'], id=data['cart_id']).first()
 
-    if not cart or not cart.items:
+    if not cart :
         return jsonify({"message": "Cart is empty or not found"}), 404
 
     # Get billing and shipping information from request
-    data = request.get_json()
-    billing_address = data.get('billing_address')
-    shipping_address = data.get('shipping_address')
 
-    if not billing_address or not shipping_address:
-        return jsonify({"message": "Billing and shipping addresses are required"}), 400
+    # billing_address = data.get('billing_address')
+    # shipping_address = data.get('shipping_address')
+
+    # if not billing_address or not shipping_address:
+    #     return jsonify({"message": "Billing and shipping addresses are required"}), 400
 
     # Calculate the total price
-    total_price = cart.total_price
+    # total_price = cart.total_price
 
     # Create a new order
     new_order = Order(
-        user_id=current_user_id,
-        total_price=total_price,
-        billing_address=billing_address,
-        shipping_address=shipping_address
+        user_id=current_user_id['id'],
+        cart_id=data['cart_id'],
+        total_price=data['grandTotal'],
+        # billing_address=billing_address,
+        # shipping_address=shipping_address
     )
     db.session.add(new_order)
     db.session.commit()
 
     # Create order items based on cart items
-    for item in cart.items:
+    for item in data['cartItems']:
         order_item = OrderItem(
             order_id=new_order.id,
-            product_id=item.product_id,
-            quantity=item.quantity
+            product_id=item['product_id'],
+            quantity=item['quantity']
         )
         db.session.add(order_item)
 
@@ -581,6 +624,41 @@ def get_order_details(order_id):
     }
 
     return jsonify(serialized_order), 200
+
+
+@app.route('/mpesa/stk_push', methods=['POST'])
+def stk_push():
+    data = request.get_json()
+    amount = data.get('total_price')
+    phone_number = data.get('phone_number')
+
+    access_token = get_access_token()
+    password, timestamp = generate_password()
+    # timestamp = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+
+    headers = {
+        'Authorization': f'Bearer {access_token}',
+        'Content-Type': 'application/json'
+    }
+
+    payload = {
+        'BusinessShortCode': SHORTCODE,
+        'Password': password,
+        'Timestamp': timestamp,
+        'TransactionType': 'CustomerPayBillOnline',
+        'Amount': amount,
+        'PartyA': phone_number,
+        'PartyB': SHORTCODE,
+        'PhoneNumber': phone_number,
+        'CallBackURL': 'https://www.google.com/',
+        'AccountReference': 'Test123',
+        'TransactionDesc': 'Payment for Goods'
+    }
+    print(payload)
+
+    response = requests.post(LIPA_NA_MPESA_URL, json=payload, headers=headers)
+    #  Update OrderStatus
+    return jsonify(response.json(), 200)
 
 
 if __name__ == '__main__':

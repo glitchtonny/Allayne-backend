@@ -60,6 +60,7 @@ class Cart(db.Model):
 
 class CartItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
     quantity = db.Column(db.Integer, nullable=False, default=1)
@@ -70,18 +71,19 @@ class CartItem(db.Model):
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'), nullable=False)
     total_price = db.Column(db.Float, nullable=False)
     status = db.Column(db.String(50), default='Pending')
-    billing_address = db.Column(db.String(255), nullable=False)
-    shipping_address = db.Column(db.String(255), nullable=False)
+    billing_address = db.Column(db.String(255), nullable=True)
+    shipping_address = db.Column(db.String(255), nullable=True)
     items = db.relationship('OrderItem', backref='order', lazy=True)
 
-    @property
-    def total_price(self):
-        return sum(item.quantity * item.product.price for item in self.items)
+    # @property
+    # def total_price(self):
+    #     return sum(item.quantity * item.product.price for item in self.items)
 
-    def __repr__(self):
-        return f'<Order {self.id} Total=${self.total_price}>'
+    # def __repr__(self):
+    #     return f'<Order {self.id} Total=${self.total_price}>'
 
 class OrderItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)

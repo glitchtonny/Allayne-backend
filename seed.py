@@ -35,6 +35,7 @@ with app.app_context():
         db.session.commit()  # Commit to get the ID for the category
         categories[category_name] = category
 
+    
     # Seed the admin user
     admin = User(
         username='admin',
@@ -66,13 +67,13 @@ with app.app_context():
             {'name': 'Ripped Denim', 'description': 'Stylish ripped denim jeans.', 'image_url': 'https://cdn11.bigcommerce.com/s-h56o4umii7/images/stencil/1280x1280/products/51318/531393/0fdea4989c76bc6e__19613.1681943527.jpg?c=1'},
             {'name': 'High-Waisted Jeans', 'description': 'High-waisted jeans for a retro look.', 'image_url': 'https://hips.hearstapps.com/hmg-prod/images/best-high-waisted-jeans-665a109827b88.jpg?crop=0.486xw:0.966xh;0.00340xw,0.00338xh&resize=1200:*'},
             {'name': 'Ripped Denim', 'description': 'Stylish ripped denim jeans.', 'image_url': 'https://cdn11.bigcommerce.com/s-h56o4umii7/images/stencil/1280x1280/products/51318/531393/0fdea4989c76bc6e__19613.1681943527.jpg?c=1'},
-            {'name': 'Classic Jeans', 'description': 'A timeless pair of classic jeans.', 'image_url': 'https://m.media-amazon.com/images/I/715K4AhGLZS._AC_UY1000_.jpg'},
-            {'name': 'Classic Jeans', 'description': 'A timeless pair of classic jeans.', 'image_url': 'https://m.media-amazon.com/images/I/715K4AhGLZS._AC_UY1000_.jpg'},
-            {'name': 'Skinny Jeans', 'description': 'Skinny fit jeans that hug your figure.', 'image_url': 'https://target.scene7.com/is/image/Target/GUEST_6fbee1bf-c3a1-46fb-8a01-90b027e1cdb6?wid=488&hei=488&fmt=pjpeg'},
-            {'name': 'Ripped Denim', 'description': 'Stylish ripped denim jeans.', 'image_url': 'https://cdn11.bigcommerce.com/s-h56o4umii7/images/stencil/1280x1280/products/51318/531393/0fdea4989c76bc6e__19613.1681943527.jpg?c=1'},
-            {'name': 'High-Waisted Jeans', 'description': 'High-waisted jeans for a retro look.', 'image_url': 'https://hips.hearstapps.com/hmg-prod/images/best-high-waisted-jeans-665a109827b88.jpg?crop=0.486xw:0.966xh;0.00340xw,0.00338xh&resize=1200:*'},
-            {'name': 'Ripped Denim', 'description': 'Stylish ripped denim jeans.', 'image_url': 'https://cdn11.bigcommerce.com/s-h56o4umii7/images/stencil/1280x1280/products/51318/531393/0fdea4989c76bc6e__19613.1681943527.jpg?c=1'},
-            {'name': 'Classic Jeans', 'description': 'A timeless pair of classic jeans.', 'image_url': 'https://m.media-amazon.com/images/I/715K4AhGLZS._AC_UY1000_.jpg'}
+            {'name': 'Mom Jeans', 'description': 'A timeless pair of classic jeans.', 'image_url': 'https://img.abercrombie.com/is/image/anf/KIC_155-3423-3228-278_model1.jpg?policy=product-large'},
+            {'name': 'Solid flared Jeans', 'description': 'A timeless pair of classic jeans.', 'image_url': 'https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/04/0579671/1.jpg?9294'},
+            {'name': 'Baggy Jeans', 'description': 'Skinny fit jeans that hug your figure.', 'image_url': 'https://culturedstore.in/wp-content/uploads/2024/02/Laser-Rush-women-baggy-jeans-1-1-1.jpg'},
+            {'name': 'Cigarette Denim', 'description': 'Stylish ripped denim jeans.', 'image_url': 'https://www.gapcanada.ca/webcontent/0017/589/589/cn17589589.jpg'},
+            {'name': 'Boyfriend Jeans', 'description': 'High-waisted jeans for a retro look.', 'image_url': 'https://m.media-amazon.com/images/I/71vzzS4IRYL._AC_UY1100_.jpg'},
+            {'name': 'Straight Denim', 'description': 'Stylish ripped denim jeans.', 'image_url': 'https://www.madish.in/cdn/shop/products/the-90s-straight-high-waist-jeans-jeans-madish-496096.jpg?v=1715274428&width=800'},
+            {'name': 'Wide leg Jeans', 'description': 'A timeless pair of classic jeans.', 'image_url': 'https://offduty.in/cdn/shop/collections/WIDE_LEG.png?v=1677662662'}
 
         ],
         'Dresses': [
@@ -176,6 +177,7 @@ with app.app_context():
         for _ in range(5):
             cart_item = CartItem(
                 cart_id=cart.id,
+                user_id=user.id,
                 product_id=faker.random_element(elements=products).id,
                 quantity=faker.random_int(min=1, max=3)
             )
@@ -188,6 +190,8 @@ with app.app_context():
         for _ in range(3):
             order = Order(
                 user_id=user.id,
+                cart_id=cart.id,
+                total_price= 500,
                 billing_address=faker.address(),
                 shipping_address=faker.address(),
                 status=faker.random_element(elements=('Pending', 'Shipped', 'Delivered'))
